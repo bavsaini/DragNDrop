@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+   
+		<title>Registration</title>
+		<meta charset="UTF-8">
+		<style>
+			td{
+				padding: 10px 0px;
+			}
+			button{
+				padding: 2px 25px;
+				border-radius: 5px;
+			}
+			input, select{
+				width: 250px; 
+				height: 20px;
+			}
+			progress{
+				-webkit-appearance: none; 
+   				appearance: none;
+				height: 20px;
+				width: 150px;
+				background-color: #B9B3B1;
+			}
+			#pswd_info {
+				position:relative;
+				bottom:-75px;
+				bottom: -115px\9; /* IE Specific */
+				right:55px;
+				width:250px;
+				padding:15px;
+				background:#fefefe;
+				font-size:.875em;
+				border-radius:5px;
+				border:1px solid #ddd;
+				box-shadow:0 1px 3px #ccc;
+				display: none;				 
+			}
+			
+			#pswd_info h4 {
+				margin:0 0 10px 0;
+				padding:0;
+				font-weight:normal;
+			}
+			#pswd_info::before {
+				content: "\25C0";
+				position:relative;
+				top:40px;
+				right:11%;
+				font-size:14px;
+				line-height:14px;
+				color:#ddd;
+				text-shadow:none;
+				display:block;
+			}
+			.invalid {
+				background:url(./images/invalid.png) no-repeat 0 50%;
+			 	padding-left:22px;
+				line-height:24px;
+				color:#ec3f41;
+			}
+			.valid {
+				background:url(./images/valid.png) no-repeat 0 50%;
+				padding-left:22px;
+				line-height:24px;
+				color:#3a7d34;
+			 }
+			 #img1, #img2, #img3{
+				float: left;
+				width: 50px;
+				height: 50px;
+				margin: 5px;
+				border: 2px solid blue;
+			}
+			#msg{
+				float: left;
+				width: 50px;
+				height: 50px;
+				margin: 5px;
+				border: 2px solid black;
+			}
+		</style>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script src="script.js"></script>
+	
+	</head>
+	<body>
+		<form name="myform" action="ajaxjs.php" method="POST">
+			<table border="0" align="center">
+				<th colspan="3" style="text-align:center"><h2>Registration</h2> <hr></th>
+				
+	<tr>
+					<td>User ID</td>
+					<td><input type="text" id="userid" name="userid" required placeholder="Enter User ID"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" id="pass" name="password" onkeyup="checkPasswordStrength();"placeholder="Enter password" title="Must be between 7-20 characters in length and include 4 alpha characters; 1 numeric character(0,9) or 1 special character _. The password is case sensitive and must not contain spaces or be the same as your user id">
+                    <progress id="passStrength" value="0" max="100"></progress></td>
+	<td style="padding-left: 63px"> <div id="pswd_info">
+    <h4>Password Strength Requirements:</h4>
+    <ul>
+    	<li id="capital" class="invalid">1 Upper-Case Letter</li>
+        <li id="lower" class="invalid">1 lower-Case Letter</li>
+        <li id="number" class="invalid">1 number</li>
+        <li id="length" class="invalid">8 or more characters</li>
+        <li id="chars" class="invalid">Uses only these English characters: A-z,0-9,_</li>
+        <li id="sameuser" class="invalid">Password cannot be same as your user ID</li>
+        
+    </ul>
+</div></td></tr>
+	
+   
+			  <tr>
+					<td>Verify Password</td>
+					<td><input type="password" id="vpass" name="vpassword" onkeyup="validatePassword(); " required placeholder="Must be same as password"> </td>
+                    <td style="padding-left: -9px"><span id="passVerificationMsg"></span></td>
+					
+	</tr>
+              <tr>  <td>Email Address</td>
+					<td><input type="email" id="email" name="email_add" placeholder="Enter Email Address"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required ></td></tr>
+<tr>
+	  <td>Verify Email Address &nbsp;&nbsp;</td>
+					<td><input type="email" id="vemail" name="vemail_add" onkeyup="validateEmail();" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Must be same as Email Address" title="Enter the same email address as above"></td>
+					<td><span id="verificationMsg"></span></td>
+	</tr>
+				
+				<tr>
+					<td>Security Question</td>
+					<td><select onkeyup= "validatePassword();">
+                   		<option value="Sum of 2 + 3">Sum of 2 + 3</option>
+						<option value="Sum of 100 + 200">Sum of 100 + 200</option>
+						<option value="23 * 100 = ">23 * 100 = </option>
+						<option value="Capital of India?">Capital of India?</option>
+						<option value="Capital of USA?">Capital of USA?</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Security Answer</td>
+					<td><input type="text" id="securityques" name="securityques" required title="Please answer a security question"></td>
+				</tr>
+                <tr>
+					<td>Security Question</td>
+					<td><select>
+                   		<option value="Sum of 2 + 3">Sum of 2 + 3</option>
+						<option value="Sum of 100 + 200">Sum of 100 + 200</option>
+						<option value="23 * 100 = ">23 * 100 = </option>
+						<option value="Capital of India?">Capital of India?</option>
+						<option value="Capital of USA?">Capital of USA?</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Security Answer</td>
+					<td><input type="text" id="security2" name="security2"required title="Please answer a security question"></td>
+				</tr>
+				<tr>
+					<td>Mobile Number</td>
+					<td><input type="tel" id="mob" name="mob" placeholder="###-###-####" required pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Required format ###-###-####"></td>
+				</tr>
+				
+				<tr>
+					<td>Address</td>
+					<td colspan="2"><textarea name="address" id="address" cols="60" rows="4" required></textarea></td>
+				</tr>
+                <tr><td></td><td>Areas you may be intersted in, Please write one or more</td></tr>
+				<tr>
+					<td></td>
+					<td><textarea name="interests" id="interests" cols="60" rows="4"></textarea></td>
+				</tr>
+				<tr>
+					<td></td>
+                    
+                    </tr>
+                    
+                    
+                    <tr><td>
+                    
+					Drag one item <br><br>
+				<div id="src">
+					<img id="img1" src="./images/sanJoselogo.jpg" alt="img_apple">&nbsp;&nbsp;&nbsp;&nbsp;
+					<img id="img2" src="./images/cmpe_logo.jpg" alt="img_pear">&nbsp;&nbsp;&nbsp;&nbsp;
+					<img id="img3" src="./images/library.jpg" alt="img_orange">
+	
+					<br><br><br><br>
+					Drop it in the box below <br><br>
+				    <div id="target">
+	        			<p id="msg">Drop Here</p>
+	    			</div>
+				</div></td></tr>
+                    <tr><td>
+						<button type="submit" id="submit" value="Register" disabled onClick="myFunction();">Register</button>
+						<button type="reset" name="reset">Cancel</button>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+            
+            
+            <script>
+			var src = document.getElementById("src");
+			var target = document.getElementById("target");
+			var msg = document.getElementById("msg");
+			var draggedID;
+			target.ondragenter = handleDrag;
+			target.ondragover = handleDrag;
+
+			target.ondrop = function (e) {
+				var newElem = document.getElementById(draggedID).cloneNode(false);
+				target.innerHTML = "";
+				target.appendChild(newElem);
+				//document.getElementById(draggedID).remove();
+				e.preventDefault();
+				document.getElementById("submit").disabled = false;
+			}
+
+			function handleDrag(e) {
+				e.preventDefault();
+			}
+
+			src.ondragstart = function (e) {
+				draggedID = e.target.id;
+				e.target.classList.add("dragged");
+			}
+			src.ondragend = function (e) {
+				var elems = document.querySelectorAll(".dragged");
+				for (var i = 0; i < elems.length; i++) {
+					elems[i].classList.remove("dragged");
+				}
+			}
+
+			function ValidCaptcha() {
+	            var src = document.getElementById("src");
+	            var target = document.getElementById("target");
+        	}
+
+        	// Remove the spaces from the entered and generated code
+        	function removeSpaces(string) {
+           		return string.split(' ').join('');
+        	}
+		</script>
+            
+		</form>
+        
+	</body>
+</html>
